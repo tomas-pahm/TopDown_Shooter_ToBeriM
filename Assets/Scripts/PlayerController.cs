@@ -1,16 +1,32 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    
     public FloatingJoystick joystick; 
     private Rigidbody2D rb;
     private Vector2 moveInput;
     private bool facingRight = true;
-    public Animator anim; 
+    public Animator anim;
+    public Weapon curWeapon;
+    [Header("Chỉ số Player")]
+    public float maxHealth = 100;
+    public float curHealth;
+    public float moveSpeed = 15f;
+    [Header("UI Thanh Máu")]
+    public Slider healthSlider;
+    private bool isDead = false;
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
+        curHealth = maxHealth;
+
+        if (healthSlider != null)
+        {
+            healthSlider.maxValue = maxHealth;
+            healthSlider.value = curHealth;
+        }
     }
 
     void Update() {
@@ -30,10 +46,17 @@ public class PlayerController : MonoBehaviour
         
         bool isWalking = moveInput.magnitude > 0;
         anim.SetBool("isWalking", isWalking);
+        
+        if (Input.GetButtonDown("Fire1"))
+        {
+            curWeapon.Fire();
+        }
     }
 
-    void FixedUpdate() {
-        rb.MovePosition(rb.position + moveInput.normalized * moveSpeed * Time.fixedDeltaTime);
+    void FixedUpdate() // Di chuyển vật lý nên để trong FixedUpdate
+    {
+        // Giả sử direction là Vector2 từ Input của ông
+        rb.linearVelocity = moveInput.normalized * moveSpeed; 
     }
 
     void Flip() {
@@ -43,4 +66,28 @@ public class PlayerController : MonoBehaviour
         scaler.x *= -1;
         transform.localScale = scaler;
     }
+    
+   public void TakeDamage(float damage)
+    {
+        if(isDead) return;
+        curHealth -= damage;
+
+        if (healthSlider != null)
+        {
+            healthSlider.value = curHealth;
+        }
+        Debug.Log("Máu Player còn: " + curHealth);
+        if (curHealth <= 0)
+        {
+            PlayerDie();
+        }
+    }
+   
+   void PlayerDie(){
+        isDead = true;
+        anim.SetTrigger("isDead");
+        rb.linearVelocity = Vector2.zero;
+        rb.simulated = false;
+        Destroy(gameObject, 0.75f);
+   }
 }
