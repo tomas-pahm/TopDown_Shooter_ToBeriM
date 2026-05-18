@@ -114,7 +114,7 @@ public class BurnSkill : MonoBehaviour
             
             float progress = currentBurnTime / burnDurationToMax;
             
-            player.moveSpeed = Mathf.Lerp(originalMoveSpeed, originalMoveSpeed*2, progress);
+            player.moveSpeed = Mathf.Lerp(originalMoveSpeed, originalMoveSpeed*1.5f, progress);
 
             if (weapon != null)
             {
