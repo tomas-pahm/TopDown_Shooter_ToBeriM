@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,15 @@ public class PlayerController : MonoBehaviour
     [Header("UI Thanh Máu")]
     public Slider healthSlider;
     private bool isDead = false;
+    [Header("Dash Skill")]
+    public float dashTime = 0.2f;
+    private float _dashTime;
+    public float dashSpeedMutliplier = 1.5f;
+    private bool isDashing;
+    public GameObject glitchEffect;
+    public float delayGlitchSeconds = 0.05f;
+    private Coroutine dashEffectCoroutine;
+    
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -37,6 +47,24 @@ public class PlayerController : MonoBehaviour
             moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         }
 
+        if (Input.GetKeyDown(KeyCode.Space) && _dashTime <= 0 && !isDashing)
+        {
+            _dashTime = dashTime;
+            isDashing = true;
+            StartDashEffect();
+        }
+
+        // Chỉ đếm ngược khi đang lướt
+        if (isDashing)
+        {
+            _dashTime -= Time.deltaTime;
+            if (_dashTime <= 0)
+            {
+                isDashing = false;
+                StopDashEffect();// Hết thời gian lướt thì tắt trạng thái
+            }
+        }
+
         // Kiểm tra hướng để lật mặt
         if (moveInput.x > 0 && !facingRight) {
             Flip();
@@ -55,8 +83,16 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate() // Di chuyển vật lý nên để trong FixedUpdate
     {
-        // Giả sử direction là Vector2 từ Input của ông
-        rb.linearVelocity = moveInput.normalized * moveSpeed; 
+        float currentSpeed = moveSpeed; 
+
+        // Nếu đang Dash, lấy tốc độ hiện tại nhân thêm hệ số lướt
+        if (isDashing)
+        {
+            currentSpeed = moveSpeed * dashSpeedMutliplier;
+        }
+
+        // Áp vận tốc vật lý cực kỳ an toàn
+        rb.linearVelocity = moveInput.normalized * currentSpeed;
     }
 
     void Flip() {
@@ -89,5 +125,29 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         rb.simulated = false;
         Destroy(gameObject, 0.75f);
+   }
+
+   void StopDashEffect()
+   {
+       if (dashEffectCoroutine != null)
+           StopCoroutine(dashEffectCoroutine);
+       
+   }
+   void StartDashEffect()
+   {
+       if (dashEffectCoroutine != null)
+           StopCoroutine(dashEffectCoroutine);
+           dashEffectCoroutine = StartCoroutine(DashEffectCoroutine());
+       
+   }
+
+   IEnumerator DashEffectCoroutine()
+   {
+       while (true)
+       {
+           GameObject glitch = Instantiate(glitchEffect, transform.position, transform.rotation);
+           Destroy(glitch, 0.3f);
+           yield return new WaitForSeconds(delayGlitchSeconds);
+       }
    }
 }
