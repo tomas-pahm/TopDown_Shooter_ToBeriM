@@ -7,12 +7,34 @@ public class SheepAI : MonoBehaviour
     private Rigidbody2D rb;
     public float moveSpeed = 1.5f;
     private Vector2 moveDirection;
+    
+    [Header("Cấu hình thịt")]
+    public GameObject meatPrefab;
+
+    public float health = 10f;
 
     void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         StartCoroutine(SheepBehaviorCoroutine());
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        if (health <= 0f)
+            Die();
+    }
+
+    void Die()
+    {
+        if (meatPrefab != null)
+        {
+            Instantiate(meatPrefab, transform.position, Quaternion.identity);
+        }
+
+        Destroy(gameObject);
     }
 
     void FixedUpdate()

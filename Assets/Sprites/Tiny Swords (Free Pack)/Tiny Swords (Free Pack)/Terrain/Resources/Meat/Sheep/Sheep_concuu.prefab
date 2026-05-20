@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6727369314600828931}
   m_Layer: 9
   m_Name: Sheep_concuu
-  m_TagString: Untagged
+  m_TagString: Sheep
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,6 +130,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SheepAI
   moveSpeed: 1.5
+  meatPrefab: {fileID: 7703338292957052474, guid: 2396c0266740be544aa41bc1eb1d2ee9, type: 3}
+  health: 10
 --- !u!50 &5741905511666918365
 Rigidbody2D:
   serializedVersion: 5
@@ -194,7 +196,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 0.703125, y: 0.6875}
     newSize: {x: 0.703125, y: 0.6875}
     adaptiveTilingThreshold: 0.5

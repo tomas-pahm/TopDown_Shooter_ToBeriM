@@ -41,7 +41,18 @@ public class Bullet : MonoBehaviour
             }
             Destroy(gameObject);
         }
+
+        if (collision.CompareTag("Sheep"))
+        {
+            SheepAI sheep = collision.GetComponent<SheepAI>();
+            if (sheep != null)
+            {
+                sheep.TakeDamage(bulletDamage);
+            }
+            Destroy(gameObject);
+        }
     }
+    
 
     // Update is called once per frame
     void Update()

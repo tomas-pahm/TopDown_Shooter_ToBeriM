@@ -94,14 +94,9 @@ public class Enemy : MonoBehaviour
 
                     if (playerController != null)
                     {
-                        Debug.Log($"[DEBUG SUCCESS] TÌM THẤY SCRIPT! Quái cắn Player mất {enemyDamage} máu!");
                         playerController.TakeDamage(enemyDamage);
                         
                         nextAttackTime = Time.time + attackRate;
-                    }
-                    else
-                    {
-                        Debug.LogError($"[DEBUG ERROR] Không thể tìm thấy script PlayerController trên {collision.gameObject.name} hoặc các lớp cha của nó!");
                     }
                 }
             }
