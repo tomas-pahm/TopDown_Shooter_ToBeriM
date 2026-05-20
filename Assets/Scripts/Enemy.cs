@@ -12,21 +12,26 @@ public class Enemy : MonoBehaviour
     public float attackRate = 0.5f;
     private float nextAttackTime;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        
+        // Tìm Player theo Tag an toàn
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+        {
+            player = playerObj.transform;
+        }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (player != null)
         {
             Vector2 targetDirection = (player.position - transform.position).normalized;
 
+            // --- THUẬT TOÁN BẦY ĐÀN (SEPARATION) ---
             Vector2 separationTarget = Vector2.zero;
             int neighborCount = 0;
 
@@ -49,16 +54,10 @@ public class Enemy : MonoBehaviour
             
             rb.linearVelocity = targetDirection * moveSpeed;
 
+            // lật mặt Sprite quái
             if (spriteRenderer != null)
             {
-                if (targetDirection.x > 0)
-                {
-                    spriteRenderer.flipX = false;
-                }
-                else
-                {
-                    spriteRenderer.flipX = true;
-                }
+                spriteRenderer.flipX = targetDirection.x <= 0;
             }
         }
     }
@@ -75,23 +74,36 @@ public class Enemy : MonoBehaviour
         {
             Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
         }
-
         Destroy(gameObject);
     }
 
+   
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
-            if (Time.time >= nextAttackTime)
+            if (collision.isTrigger)
             {
-                PlayerController player = collision.GetComponent<PlayerController>();
-                if (player != null)
+                if (Time.time >= nextAttackTime)
                 {
-                    player.TakeDamage(enemyDamage);
-                }
+                    PlayerController playerController = collision.GetComponent<PlayerController>();
+                    if (playerController == null)
+                    {
+                        playerController = collision.GetComponentInParent<PlayerController>();
+                    }
 
-                nextAttackTime = Time.time + attackRate;
+                    if (playerController != null)
+                    {
+                        Debug.Log($"[DEBUG SUCCESS] TÌM THẤY SCRIPT! Quái cắn Player mất {enemyDamage} máu!");
+                        playerController.TakeDamage(enemyDamage);
+                        
+                        nextAttackTime = Time.time + attackRate;
+                    }
+                    else
+                    {
+                        Debug.LogError($"[DEBUG ERROR] Không thể tìm thấy script PlayerController trên {collision.gameObject.name} hoặc các lớp cha của nó!");
+                    }
+                }
             }
         }
     }

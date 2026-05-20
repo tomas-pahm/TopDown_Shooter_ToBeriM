@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6993052905745796634}
   - component: {fileID: 6090651247629545867}
   - component: {fileID: 4806723940962656935}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: walk_0_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 5747386020997888398}
   - component: {fileID: 7310202983696076616}
   - component: {fileID: 3937861644542198942}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Enemy1 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
