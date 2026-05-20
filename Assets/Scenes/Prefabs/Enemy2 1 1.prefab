@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6440799588211108177}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.76674, y: -0.7734, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bee3a47139bfc34a868f67ee301aaeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  moveSpeed: 6
+  moveSpeed: 3
   health: 15
   deathEffectPrefab: {fileID: 2730797422492589255, guid: 912cb2e5b618da9409465dba501481bf, type: 3}
   enemyDamage: 2
