@@ -59,7 +59,7 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 9
-  spritePivot: {x: 0.5, y: 0.3}
+  spritePivot: {x: 0.5, y: 0.14}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -109,7 +109,7 @@ TextureImporter:
     buildTarget: Android
     maxTextureSize: 512
     resizeAlgorithm: 0
-    textureFormat: 68
+    textureFormat: 50
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0

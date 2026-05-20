@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639147121069030828
+  platformSettingsDirtyTick: 639148818608228057
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -655,9 +655,9 @@ ScriptedImporter:
   - name: Android
     overridden: 1
     ignorePlatformSupport: 0
-    maxTextureSize: 16384
+    maxTextureSize: 512
     resizeAlgorithm: 0
-    textureFormat: 4
+    textureFormat: 50
     textureCompression: 0
     compressionQuality: 50
     forceMaximumCompressionQuality_BC6H_BC7: 0
