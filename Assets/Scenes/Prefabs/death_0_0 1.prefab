@@ -127,4 +127,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bde8080775d46e39ca16371342bca09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeathAfterTime
-  deathTime: 0.8333333
+  deathTime: 0.75

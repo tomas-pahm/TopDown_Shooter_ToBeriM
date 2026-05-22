@@ -7,6 +7,7 @@ public class SheepAI : MonoBehaviour
     private Rigidbody2D rb;
     public float moveSpeed = 1.5f;
     private Vector2 moveDirection;
+    private bool isDead = false;
     
     [Header("Cấu hình thịt")]
     public GameObject meatPrefab;
@@ -29,6 +30,8 @@ public class SheepAI : MonoBehaviour
 
     void Die()
     {
+        if(isDead) return;
+        isDead = true;
         if (meatPrefab != null)
         {
             Instantiate(meatPrefab, transform.position, Quaternion.identity);

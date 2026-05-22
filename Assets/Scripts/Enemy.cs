@@ -4,20 +4,20 @@ public class Enemy : MonoBehaviour
 {
     public float moveSpeed = 3f;
     public int health = 3;
-    private Transform player;
-    private Rigidbody2D rb;
-    private SpriteRenderer spriteRenderer;
+    protected Transform player; // Đổi sang protected
+    protected Rigidbody2D rb;    // Đổi sang protected
+    protected SpriteRenderer spriteRenderer; // Đổi sang protected
     [Header("Hiệu ứng khi chết")] public GameObject deathEffectPrefab;
     [Header("Sát thương quái")] public float enemyDamage = 10;
     public float attackRate = 0.5f;
-    private float nextAttackTime;
+    protected float nextAttackTime; // Đổi sang protected để con đọc được
 
-    void Start()
+    // Thêm chữ protected virtual vào đầu các hàm này
+    protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         
-        // Tìm Player theo Tag an toàn
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
         {
@@ -25,13 +25,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (player != null)
         {
             Vector2 targetDirection = (player.position - transform.position).normalized;
 
-            // --- THUẬT TOÁN BẦY ĐÀN (SEPARATION) ---
+            // --- THUẬT TOÁN BẦY ĐÀN (SEPARATION) --- CỦA CHẤN
             Vector2 separationTarget = Vector2.zero;
             int neighborCount = 0;
 
@@ -54,7 +54,6 @@ public class Enemy : MonoBehaviour
             
             rb.linearVelocity = targetDirection * moveSpeed;
 
-            // lật mặt Sprite quái
             if (spriteRenderer != null)
             {
                 spriteRenderer.flipX = targetDirection.x <= 0;
@@ -62,13 +61,14 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         health -= damage;
         if (health <= 0) Die();
     }
 
-    void Die()
+    // ĐỔI THÀNH protected virtual ĐỂ BOSS KẾ THỪA
+    protected virtual void Die()
     {
         if (deathEffectPrefab != null)
         {
@@ -77,27 +77,18 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-   
-    private void OnTriggerStay2D(Collider2D collision)
+    // Hàm cắn càn dành riêng cho MOB THƯỜNG
+    protected virtual void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && collision.isTrigger)
         {
-            if (collision.isTrigger)
+            if (Time.time >= nextAttackTime)
             {
-                if (Time.time >= nextAttackTime)
+                PlayerController playerController = collision.GetComponentInParent<PlayerController>();
+                if (playerController != null)
                 {
-                    PlayerController playerController = collision.GetComponent<PlayerController>();
-                    if (playerController == null)
-                    {
-                        playerController = collision.GetComponentInParent<PlayerController>();
-                    }
-
-                    if (playerController != null)
-                    {
-                        playerController.TakeDamage(enemyDamage);
-                        
-                        nextAttackTime = Time.time + attackRate;
-                    }
+                    playerController.TakeDamage(enemyDamage);
+                    nextAttackTime = Time.time + attackRate;
                 }
             }
         }
