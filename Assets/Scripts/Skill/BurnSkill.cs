@@ -17,6 +17,7 @@ public class BurnSkill : MonoBehaviour
     public float maxCooldown = 20f;
     public float burnCooldown = 0f;
     private float currentBurnTime = 0f;
+    public float sacrificeMultiplier = 2f;
 
     private float burnHpTimer = 0f;
 
@@ -114,11 +115,11 @@ public class BurnSkill : MonoBehaviour
             
             float progress = currentBurnTime / burnDurationToMax;
             
-            player.moveSpeed = Mathf.Lerp(originalMoveSpeed, originalMoveSpeed*1.5f, progress);
+            player.moveSpeed = Mathf.Lerp(originalMoveSpeed, originalMoveSpeed*sacrificeMultiplier, progress);
 
             if (weapon != null)
             {
-                weapon.burnMultiplier = Mathf.Lerp(1f, 1.5f, progress);
+                weapon.burnMultiplier = Mathf.Lerp(1f, sacrificeMultiplier, progress);
             }
         }
     }

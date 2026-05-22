@@ -9,9 +9,9 @@ public class Weapon : MonoBehaviour
     public Transform armTransform;
 
     [Header("Thông số súng")]
-    public float fireRate = 0.5f;       // Tốc độ bắn (Tiểu liên thì cho nhỏ thôi)
-    public float recoilDistance = 0.1f; // Độ giật
-    public int bulletsPerShot = 1;      // Số viên mỗi lần bắn (Lục/Tiểu liên = 1, Shotgun = 3-5)
+    public float fireRate = 0.5f;       
+    public float recoilDistance = 0.1f; 
+    public int bulletsPerShot = 1;      
     public float spreadAngle = 0f;  
     
     [HideInInspector] public float burnMultiplier = 1f;
@@ -26,41 +26,52 @@ public class Weapon : MonoBehaviour
     }
 
     public void Fire() {
+        // Sử dụng Time.time để check hồi chiêu đạn
         if (Time.time < nextFireTime || bulletPrefab == null) return;
 
-        // Xử lý bắn nhiều viên (Dùng cho Shotgun)
         for (int i = 0; i < bulletsPerShot; i++) {
             SpawnBullet();
         }
 
-        // Hiệu ứng Visual
         if (muzzleFlash != null) muzzleFlash.Activate();
         HandleRecoil();
 
+        // Tốc độ bắn chuẩn bài: Điên càng nặng (burnMultiplier càng to) thì thời gian chờ hồi đạn càng nhỏ -> Bắn càng nhanh!
         nextFireTime = Time.time + (fireRate / burnMultiplier);
     }
 
     void SpawnBullet() {
-        Debug.Log("Vận tốc Player hiện tại: " + playerRb.linearVelocity.magnitude);
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        
-        Bullet b = bullet.GetComponent<Bullet>();
-        if (b != null)
+        if (playerRb != null)
         {
-            b.bulletDamage=Mathf.RoundToInt(b.bulletDamage*burnMultiplier);
+            Debug.Log("Vận tốc Player hiện tại: " + playerRb.linearVelocity.magnitude);
         }
-        // Tính hướng cơ bản
-        Vector2 direction = (firePoint.position - transform.position).normalized;
+
+        // 1. Sinh ra viên đạn
+        GameObject bulletObj = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         
-        Vector2 pVelocity = playerRb != null ? playerRb.linearVelocity : Vector2.zero;
+        // 2. CHỈ GỌI GETCOMPONENT ĐÚNG 1 LẦN DUY NHẤT ĐỂ TIẾT KIỆM RAM
+        Bullet bulletScript = bulletObj.GetComponent<Bullet>();
+        if (bulletScript != null)
+        {
+            // Tính toán sát thương tăng thêm dựa trên kỹ năng điên BurnSkill
+            // Ép kiểu sang int chuẩn chỉnh không lo lỗi float
+            bulletScript.bulletDamage = Mathf.RoundToInt(bulletScript.bulletDamage * burnMultiplier);
+            
+            // Tính hướng bay của đạn
+            Vector2 direction = (firePoint.position - transform.position).normalized;
+            
+            // Lấy vận tốc hiện tại của Player ném vào đạn
+            Vector2 pVelocity = playerRb != null ? playerRb.linearVelocity : Vector2.zero;
 
-        // Nếu có độ tỏa (Spread), tính lại hướng
-        if (spreadAngle > 0) {
-            float randomSpread = Random.Range(-spreadAngle, spreadAngle);
-            direction = Quaternion.Euler(0, 0, randomSpread) * direction;
+            // Nếu súng có độ tỏa (như Shotgun) thì bẻ hướng đạn
+            if (spreadAngle > 0) {
+                float randomSpread = Random.Range(-spreadAngle, spreadAngle);
+                direction = Quaternion.Euler(0, 0, randomSpread) * direction;
+            }
+
+            // Gọi hàm Setup truyền hướng và vận tốc vào đạn thông qua biến script đã tìm ở trên
+            bulletScript.Setup(direction, pVelocity);
         }
-
-        bullet.GetComponent<Bullet>().Setup(direction, pVelocity);
     }
 
     void HandleRecoil() {
