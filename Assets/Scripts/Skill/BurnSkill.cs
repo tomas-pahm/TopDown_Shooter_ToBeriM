@@ -25,8 +25,12 @@ public class BurnSkill : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = GetComponent<PlayerController>();
-        weapon = GetComponentInChildren<Weapon>();
+        player = GetComponent<PlayerController>() ?? GetComponentInParent<PlayerController>();
+        if (player == null)
+        {
+            GameObject pObj = GameObject.FindGameObjectWithTag("Player");
+            if (pObj != null) player = pObj.GetComponent<PlayerController>();
+        }
 
         if (player != null)
             originalMoveSpeed = player.moveSpeed;
@@ -60,18 +64,24 @@ public class BurnSkill : MonoBehaviour
 
     public void toggleBurn()
     {
-        if (player == null || player.curHealth <=0) return;
-        isBurning = !isBurning;
+        // Bỏ qua nếu player thực sự bằng null (nhưng code trên đã tìm chắc chắn có rồi)
+        if (player == null || player.curHealth <= 0) 
+        {
+            return; 
+        }
+
+        isBurning = !isBurning; //
+        Debug.Log($"🔥 TRẠNG THÁI BURN THAY ĐỔI: {isBurning}");
 
         if (whiteAshEffect != null)
         {
-            whiteAshEffect.SetActive(isBurning);
+            whiteAshEffect.SetActive(isBurning); //
         }
 
         if (!isBurning)
         {
-            ResetStats();
-            burnCooldown = maxCooldown;
+            ResetStats(); //
+            burnCooldown = maxCooldown; //
         }
     }
 
@@ -110,27 +120,35 @@ public class BurnSkill : MonoBehaviour
                 player.TakeDamage(1f);
                 burnHpTimer = 0f;
             }
-            currentBurnTime +=  Time.deltaTime;
+            currentBurnTime += Time.deltaTime;
             if (currentBurnTime >= burnDurationToMax) currentBurnTime = burnDurationToMax;
-            
+        
             float progress = currentBurnTime / burnDurationToMax;
-            
-            player.moveSpeed = Mathf.Lerp(originalMoveSpeed, originalMoveSpeed*sacrificeMultiplier, progress);
+        
+            player.moveSpeed = Mathf.Lerp(originalMoveSpeed, originalMoveSpeed * sacrificeMultiplier, progress);
 
-            if (weapon != null)
+            // 🎯 RADAR QUÉT THỜI GIAN THỰC:
+            // Vũ khí mới vừa Instantiate ra là dính đòn ngay lập tức, đéo chạy đường trời nào được!
+            Weapon activeWeapon = GetComponentInChildren<Weapon>(); 
+        
+            if (activeWeapon != null)
             {
-                weapon.burnMultiplier = Mathf.Lerp(1f, sacrificeMultiplier, progress);
+                activeWeapon.burnMultiplier = Mathf.Lerp(1f, sacrificeMultiplier, progress);
             }
         }
     }
-    
+
     void ResetStats()
     {
         currentBurnTime = 0f;
         burnHpTimer = 0f;
-        // Trả các chỉ số về nguyên bản khi tắt skill
         if (player != null) player.moveSpeed = originalMoveSpeed;
-        if (weapon != null) weapon.burnMultiplier = 1f;
+        
+        Weapon activeWeapon = GetComponentInChildren<Weapon>();
+        if (activeWeapon != null)
+        {
+            activeWeapon.burnMultiplier = 1f;
+        }
     }
     
     void OnDisable()

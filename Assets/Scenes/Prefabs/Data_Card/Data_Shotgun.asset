@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf0bce2b2ce4bdbb1a4663bb46cf45e, type: 3}
+  m_Name: Data_Shotgun
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
+  upgradeName: Shotgun
+  icon: {fileID: 7364776083464622592, guid: 12b0dfb1e361a874b90bdc7d0413d011, type: 3}
+  description: "T\u0103ng \u0111\u1EA1n, s\xE1t th\u01B0\u01A1ng c\u1EA5p 2"
+  starLevel: 2
+  type: 1
+  weaponPrefab: {fileID: 1690857402658577261, guid: 0e342fadd58721f499916b8638daebe0, type: 3}
+  targetWeaponName: Shotgun
+  passiveType: 0
+  passiveValue: 0

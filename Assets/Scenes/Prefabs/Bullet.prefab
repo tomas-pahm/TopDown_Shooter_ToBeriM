@@ -180,5 +180,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   bulletSpeed: 20
-  bulletDamage: 2
+  bulletDamage: 5
   bulletLifeTime: 2
+  canRotate: 0
+  rotationSpeed: 720
+  isNotThrough: 1
