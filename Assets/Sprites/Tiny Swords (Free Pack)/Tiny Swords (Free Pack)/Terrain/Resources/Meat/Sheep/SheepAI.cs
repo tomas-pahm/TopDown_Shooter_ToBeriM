@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class SheepAI : MonoBehaviour
+public class SheepAI : MonoBehaviour, IDamageable
 {
     private Animator anim;
     private Rigidbody2D rb;
@@ -21,8 +21,12 @@ public class SheepAI : MonoBehaviour
         StartCoroutine(SheepBehaviorCoroutine());
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayVFXWithDuration(AudioManager.Instance.sheepHitSound, 1f);
+        }
         health -= damage;
         if (health <= 0f)
             Die();

@@ -18,7 +18,7 @@ namespace DefaultNamespace
                 {
                     isCollected = true;
 
-                    player.TakeDamage(-20); 
+                    player.Heal(20); 
                     Destroy(gameObject);
                 }
             }
