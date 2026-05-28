@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: MoveSpeed 3
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: Passive_Speed3
-  icon: {fileID: 3717526466582529824, guid: f61d398b0af9fd442aca18755800d962, type: 3}
-  description: "T\u0103ng SPEED l\u1EA7n 3"
+  icon: {fileID: -2108727383111481047, guid: 3d3ead31510cf0349921f4bb2a8d90cd, type: 3}
+  description: More Speed x3
   starLevel: 3
   type: 3
   weaponPrefab: {fileID: 0}

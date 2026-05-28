@@ -1400,7 +1400,7 @@ MonoBehaviour:
   expSlider: {fileID: 0}
   levelText: {fileID: 0}
   fireRateSlider: {fileID: 2271291085542185601}
-  passiveCooldownReduction: 0
+  passiveCooldownReduction: 1
   passiveMoveSpeedMultiplier: 1
   passiveDamageMultiplier: 1
   passiveMaxHealthMultiplier: 1

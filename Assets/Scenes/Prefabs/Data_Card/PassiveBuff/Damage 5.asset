@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Damage 5
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: Passive_Damage5
-  icon: {fileID: 2988522990756738250, guid: f61d398b0af9fd442aca18755800d962, type: 3}
-  description: "T\u0103ng DAM l\u1EA7n 5 (Final)"
+  icon: {fileID: 860910309584662230, guid: 5692efa8b0a6b8c479a740c8990250c5, type: 3}
+  description: More Damage x5
   starLevel: 5
   type: 3
   weaponPrefab: {fileID: 0}
