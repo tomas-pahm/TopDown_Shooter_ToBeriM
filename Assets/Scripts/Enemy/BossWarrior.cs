@@ -96,6 +96,12 @@ public class BossWarrior : Enemy
     protected override void Die()
     {
         base.Die();
+        
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.TriggerVictory();
+            Debug.Log("👑 Đã hạ gục Boss trùm cuối! Trận đấu kết thúc!");
+        }
     }
 
     public void StartGuardState()

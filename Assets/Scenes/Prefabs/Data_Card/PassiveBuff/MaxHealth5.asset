@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: MaxHealth5
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: MaxHealth5
-  icon: {fileID: 2980893065271793202, guid: f61d398b0af9fd442aca18755800d962, type: 3}
-  description: "T\u0103ng m\xE1u l\u1EA7n 5 (Final)"
+  icon: {fileID: 2690274267995810836, guid: 9c99b3935e98cfb44ba634e0a028c281, type: 3}
+  description: More Health x5 (Final)
   starLevel: 5
   type: 3
   weaponPrefab: {fileID: 0}

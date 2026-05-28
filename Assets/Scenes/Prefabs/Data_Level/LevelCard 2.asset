@@ -16,17 +16,17 @@ MonoBehaviour:
   levelDuration: 90
   wavesPool:
   - waveName: 1
-    enemyPrefab: {fileID: 7878235166806695299, guid: 017adb92938b84644a4ba782977c96c0, type: 3}
+    enemyPrefab: {fileID: 6440799588211108177, guid: 940de051eb6d1544081f12935ccccd67, type: 3}
     spawnInterval: 1
     maxEnemiesInWave: 30
     startAtSecond: 0
   - waveName: 2
-    enemyPrefab: {fileID: 6440799588211108177, guid: 940de051eb6d1544081f12935ccccd67, type: 3}
+    enemyPrefab: {fileID: 6020458919039842346, guid: bbf497ddbb56555479a16a2a9495883e, type: 3}
     spawnInterval: 1
     maxEnemiesInWave: 30
     startAtSecond: 30
   - waveName: 3
-    enemyPrefab: {fileID: 6020458919039842346, guid: bbf497ddbb56555479a16a2a9495883e, type: 3}
+    enemyPrefab: {fileID: 6553011516517442220, guid: 4e18c4a685b3d4d418b58bc041ce5c57, type: 3}
     spawnInterval: 1
     maxEnemiesInWave: 30
     startAtSecond: 60

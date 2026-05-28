@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: VoidSword5
   icon: {fileID: 440060726322782604, guid: c560729e5e68ce641b06991462d26f2b, type: 3}
-  description: "T\u0103ng th\xEAm 5 Slash"
+  description: BlackHole Sword, More Slash x5
   starLevel: 5
   type: 2
   weaponPrefab: {fileID: 4507271529326409352, guid: 043e57b2dcfa26a4fa49d0650d0d4668, type: 3}

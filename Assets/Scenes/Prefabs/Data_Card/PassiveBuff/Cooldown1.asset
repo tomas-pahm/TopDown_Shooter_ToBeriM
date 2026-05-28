@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Cooldown1
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: PassiveCooldown
-  icon: {fileID: -4575853388412288900, guid: f61d398b0af9fd442aca18755800d962, type: 3}
-  description: "Gi\u1EA3m h\u1ED3i chi\xEAu l\u1EA7n 1"
+  icon: {fileID: 982943834940572725, guid: 152c413d2c3092d4c8d9cfdc996b1110, type: 3}
+  description: Cooldown Reduction
   starLevel: 1
   type: 3
   weaponPrefab: {fileID: 0}

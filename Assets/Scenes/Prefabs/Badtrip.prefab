@@ -1031,7 +1031,7 @@ GameObject:
   - component: {fileID: 3401281558706119514}
   - component: {fileID: 8417551621371127360}
   m_Layer: 11
-  m_Name: Warrior1
+  m_Name: Badtrip
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1320,10 +1320,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fd495b4c1111b8419562abbde4f0331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  currentLevelCard: {fileID: 11400000, guid: 02614dbd2656d8747949a72057c006de, type: 2}
   minRad: 5
   maxRad: 15
   levelTimer: 0
+  dataStage1: {fileID: 11400000, guid: 02614dbd2656d8747949a72057c006de, type: 2}
+  dataStage2: {fileID: 11400000, guid: 99b694ddba5c98c4086cd5050e8e39ea, type: 2}
+  dataStage3: {fileID: 11400000, guid: 4624b895936acb94f93c139851cdb834, type: 2}
 --- !u!1 &7996447038179181640
 GameObject:
   m_ObjectHideFlags: 0

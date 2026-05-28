@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: Shotgunlvl3
   icon: {fileID: 7364776083464622592, guid: 12b0dfb1e361a874b90bdc7d0413d011, type: 3}
-  description: "T\u0103ng \u0111\u1EA1n, s\xE1t th\u01B0\u01A1ng c\u1EA5p 3"
+  description: More Bullet x3
   starLevel: 3
   type: 1
   weaponPrefab: {fileID: 1690857402658577261, guid: 0e342fadd58721f499916b8638daebe0, type: 3}

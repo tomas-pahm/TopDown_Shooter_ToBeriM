@@ -4,9 +4,7 @@ using DefaultNamespace.Level;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("=== CARD MÀN CHƠI HIỆN TẠI ===")]
-    public LevelData currentLevelCard; // Kéo thả cái Card Màn Chơi vào đây nhe Chấn!
-
+    private LevelData currentLevelCard; 
     [Header("Cấu hình khoảng cách quanh Player")]
     public float minRad = 5f;
     public float maxRad = 15f;
@@ -14,6 +12,32 @@ public class EnemySpawner : MonoBehaviour
     private Transform playerTransform;
     [HideInInspector] public float levelTimer = 0f;
     private bool isLevelEnded = false;
+    
+    [Header("=== DANH SÁCH SCRIPTABLE OBJECT / LEVEL DATA ===")]
+    public LevelData dataStage1; 
+    public LevelData dataStage2; 
+    public LevelData dataStage3; 
+
+    void Awake()
+    {
+        int selectedStage = PlayerPrefs.GetInt("CURRENT_STAGE_INDEX", 1); 
+
+        switch (selectedStage)
+        {
+            case 1:
+                currentLevelCard = dataStage1;
+                break;
+            case 2:
+                currentLevelCard = dataStage2;
+                break;
+            case 3:
+                currentLevelCard = dataStage3;
+                break;
+            default:
+                currentLevelCard = dataStage1; 
+                break;
+        }
+    }
 
     void Start()
     {
@@ -25,9 +49,18 @@ public class EnemySpawner : MonoBehaviour
         
         if (currentLevelCard == null)
         {
-            Debug.LogError("🚨 Chấn ơi! Chưa kéo Card Màn Chơi vào EnemySpawner kìa ông nậu!");
+            Debug.LogError($"🚨 Chấn ơi! Chưa kéo file ScriptableObject của Stage vào EnemySpawner kìa!");
             return;
         }
+        
+        int selectedStage = PlayerPrefs.GetInt("CURRENT_STAGE_INDEX", 1);
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.currentStageKey = $"STAGE_{selectedStage}_STARS";
+            Debug.Log($"💾 Đã gài nhãn lưu trữ thành công: {GameManager.Instance.currentStageKey}");
+        }
+
+        Debug.Log($"👾 HỆ THỐNG ĐỘNG: Đã nạp thành công dữ liệu quái vật của MÀN {selectedStage}!");
         
         foreach (WaveInfo wave in currentLevelCard.wavesPool)
         {

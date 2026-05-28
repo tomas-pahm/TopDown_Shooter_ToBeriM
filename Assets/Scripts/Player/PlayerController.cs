@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     private float shotTimer;
     
     [Header("=== HỆ THỐNG CHỈ SỐ PASSIVE ===")]
-    public float passiveCooldownReduction = 0f; 
+    public float passiveCooldownReduction = 1f; 
     public float passiveMoveSpeedMultiplier = 1f; 
     public float passiveDamageMultiplier = 1f;
     public float passiveMaxHealthMultiplier = 1f;
@@ -52,11 +52,26 @@ public class PlayerController : MonoBehaviour
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
+        
+        int hpLvl = PlayerPrefs.GetInt("STAT_HP_LEVEL", 1);   
+        int atkLvl = PlayerPrefs.GetInt("STAT_ATK_LEVEL", 1); 
+        int cdLvl = PlayerPrefs.GetInt("STAT_CDR_LEVEL", 1);
+        int speedLvl = PlayerPrefs.GetInt("STAT_SPEED_LEVEL", 1);
+        
+        maxHealth = 100f + (hpLvl - 1) * 25f; 
         curHealth = maxHealth;
 
+        passiveCooldownReduction = 1f - (cdLvl - 1) * 0.05f;
+
+        passiveMoveSpeedMultiplier = 1f + (speedLvl - 1) * 0.05f;
+        
+        passiveDamageMultiplier = 1f + (atkLvl - 1) * 0.15f; 
+        
         if (healthSlider != null) { healthSlider.maxValue = maxHealth; healthSlider.value = curHealth; }
         if (expSlider != null) { expSlider.maxValue = expToNextLvl; expSlider.value = curExp; }
         if (levelText != null) { levelText.text = "LV. " + curLvl.ToString(); }
+    
+        Debug.Log($"[ĐACS3] Vào trận thành công! Máu hiện tại đạt: {maxHealth} (Level Shop: {hpLvl})");
     }
 
     void Update() {
@@ -109,7 +124,7 @@ public class PlayerController : MonoBehaviour
         if (curWeapon == null) return;
 
         
-        float passiveModifier = Mathf.Max(0.1f, 1f - passiveCooldownReduction); 
+        float passiveModifier = Mathf.Max(0.2f, passiveCooldownReduction);
         float actualCooldown = (curWeapon.fireRate / curWeapon.burnMultiplier) * passiveModifier;
         
         if (fireRateSlider != null)
@@ -185,8 +200,8 @@ public class PlayerController : MonoBehaviour
         switch (type)
         {
             case PassiveBuffType.CooldownReduction:
-                passiveCooldownReduction += value; // Ví dụ: cộng dồn thêm 10% giảm hồi chiêu
-                Debug.Log($"[Passive UI] Đã giảm thêm {value * 100}% hồi chiêu toàn cục!");
+                passiveCooldownReduction -= value; // Ví dụ: cộng dồn thêm 10% giảm hồi chiêu
+                Debug.Log($"[Passive UI] Hệ số hồi chiêu giảm xuống còn: {passiveCooldownReduction}");
                 break;
 
             case PassiveBuffType.MovementSpeed:

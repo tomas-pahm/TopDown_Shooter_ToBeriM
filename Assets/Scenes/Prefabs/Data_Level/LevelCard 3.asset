@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e17aa7d89a2b44a4a04a3a11b86fc5f8, type: 3}
+  m_Name: LevelCard 3
+  m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.Level.LevelData
+  levelName: "M\xE0n 1"
+  levelDuration: 30
+  wavesPool:
+  - waveName: 1
+    enemyPrefab: {fileID: 7878235166806695299, guid: 017adb92938b84644a4ba782977c96c0, type: 3}
+    spawnInterval: 1
+    maxEnemiesInWave: 10
+    startAtSecond: 0
+  - waveName: 2
+    enemyPrefab: {fileID: 6440799588211108177, guid: 940de051eb6d1544081f12935ccccd67, type: 3}
+    spawnInterval: 1
+    maxEnemiesInWave: 10
+    startAtSecond: 10
+  - waveName: 3
+    enemyPrefab: {fileID: 6020458919039842346, guid: bbf497ddbb56555479a16a2a9495883e, type: 3}
+    spawnInterval: 1
+    maxEnemiesInWave: 10
+    startAtSecond: 20
+  - waveName: 3
+    enemyPrefab: {fileID: 6553011516517442220, guid: 4e18c4a685b3d4d418b58bc041ce5c57, type: 3}
+    spawnInterval: 2
+    maxEnemiesInWave: 5
+    startAtSecond: 20
+  bossPrefab: {fileID: 7673507517946278606, guid: 52d63a966c8ebfb41b6256973a0877f4, type: 3}

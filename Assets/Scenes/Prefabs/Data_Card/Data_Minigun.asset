@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: Minigun
   icon: {fileID: 6522462512002926778, guid: 134b404cd42fd444f8722887180550c5, type: 3}
-  description: "Shotgun bi\u1EBFn d\u1EA1ng"
+  description: Shotgun Evolution
   starLevel: 5
   type: 2
   weaponPrefab: {fileID: 1690857402658577261, guid: 2e24b22b71d9d8845952df3ee49a9e2d, type: 3}

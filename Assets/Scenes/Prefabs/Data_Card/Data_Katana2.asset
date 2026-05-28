@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: Katana
   icon: {fileID: 6637912099839011987, guid: f5767a2bf3f22da4483cad98cd201c73, type: 3}
-  description: "T\u0103ng s\xE1t th\u01B0\u01A1ng l\u1EA7n 2"
+  description: More Damage x2
   starLevel: 3
   type: 1
   weaponPrefab: {fileID: 5732714544530993026, guid: 18007f183d2e7fa46b46d75d011da3b5, type: 3}

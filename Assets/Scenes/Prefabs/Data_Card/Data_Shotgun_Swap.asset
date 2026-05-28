@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: Shotgun
   icon: {fileID: 7364776083464622592, guid: 12b0dfb1e361a874b90bdc7d0413d011, type: 3}
-  description: "\u0110\u1ED5i sang s\xFAng nh\xE9?"
+  description: Swap to shotgun?
   starLevel: 1
   type: 2
   weaponPrefab: {fileID: 1690857402658577261, guid: 0e342fadd58721f499916b8638daebe0, type: 3}

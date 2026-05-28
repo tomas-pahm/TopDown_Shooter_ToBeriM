@@ -59,9 +59,17 @@ public class AudioManager : MonoBehaviour
         if (clip != null && vfxSource != null)
         {
             vfxSource.clip = clip;
+            
+            if (clip == sheepHitSound)
+            {
+                vfxSource.volume = 0.2f; 
+            }
+            else
+            {
+                vfxSource.volume = 1f; 
+            }
+
             vfxSource.Play(); 
-        
-            // Gọi Coroutine
             StartCoroutine(StopAudioAfterTime(vfxSource, duration));
         }
     }
