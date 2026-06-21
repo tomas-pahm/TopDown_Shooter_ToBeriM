@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using UnityEngine.UI; // BẮT BUỘC PHẢI CÓ DÒNG NÀY ĐỂ ĐIỀU KHIỂN IMAGE CHẤN ƠI
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.UI; 
 using TMPro;
 using UnityEngine.SceneManagement;
 
@@ -16,7 +17,17 @@ public class GameManager : MonoBehaviour
 
     [Header("=== UI PANEL KẾT THÚC TRẬN ===")]
     public GameObject victoryPanel;      
-    public TMP_Text clearTimeText;       
+    public TMP_Text clearTimeText;  
+    
+    [Header("=== UI PANEL THẤT BẠI (GAMEOVER) ===")]
+    public GameObject gameOverPanel;    
+    public TMP_Text survivalTimeText;
+    
+    [Header("Animator")]
+    public Animator returnToMMAnimator;
+    public Animator playAgainAnimator;
+    public Animator victoryReturnToMMAnimator;
+    
     
     // 🔥 SỬA BIẾN NÀY TỪ GameObject[] SANG Image[] ĐỂ ĐỒNG BỘ ĐỔI MÀU SAO NHE ÔNG!
     public Image[] starImages;      
@@ -24,6 +35,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        Time.timeScale = 1f;
     }
 
     void Update()
@@ -36,14 +48,17 @@ public class GameManager : MonoBehaviour
     
     public void ReturnToMainMenu()
     {
-        // Điền đúng tên Scene Menu chính của ông vào đây (Ví dụ tên là "MainMenuScene")
-        SceneManager.LoadScene("MainMenu"); 
+        if (returnToMMAnimator != null) returnToMMAnimator.SetTrigger("Click");
+        if (victoryReturnToMMAnimator != null) victoryReturnToMMAnimator.SetTrigger("Click");
+        StartCoroutine(DelayReturnToMainMenu());
     }
     
     public void TriggerVictory()
     {
         if (_isGameEnded) return;
         _isGameEnded = true;
+        
+        Time.timeScale = 0f;
         
         int clearTimeSeconds = Mathf.RoundToInt(_matchTimer);
         
@@ -72,9 +87,7 @@ public class GameManager : MonoBehaviour
         int seconds = clearTimeSeconds % 60;
         if (clearTimeText != null) clearTimeText.text = string.Format("TIME: {0:00}:{1:00}", minutes, seconds);
         
-        // ====================================================================
-        // 🔥 ĐOẠN ĐỒNG BỘ ĐỔI MÀU SAO: BIẾN SAO ĐEN THÀNH VÀNG TRÊN PANEL VICTORY
-        // ====================================================================
+        
         for (int i = 0; i < starImages.Length; i++)
         {
             if (starImages[i] != null)
@@ -91,5 +104,45 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void PlayAgain()
+    {
+        if (playAgainAnimator != null) playAgainAnimator.SetTrigger("Click");
+        StartCoroutine(DelayPlayAgain());
+    }
+
+    public void TriggerGameOver()
+    {
+        if (_isGameEnded) return;
+        _isGameEnded = true;
+        
+        Time.timeScale = 0f;
+        
+        if (gameOverPanel != null) gameOverPanel.SetActive(true);
+        
+        int survivalTimeSeconds = Mathf.RoundToInt(_matchTimer);
+        int minutes = survivalTimeSeconds / 60;
+        int seconds = survivalTimeSeconds % 60;
+
+        if (survivalTimeText != null)
+        {
+            survivalTimeText.text = string.Format("SURVIVED: {0:00}:{1:00}", minutes, seconds);
+        }
+    }
+
+    IEnumerator DelayPlayAgain()
+    {
+        yield return new WaitForSecondsRealtime(0.2f);
+        Time.timeScale = 1f;
+        string curSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(curSceneName);
+    }
+
+    IEnumerator DelayReturnToMainMenu()
+    {
+        yield return new WaitForSecondsRealtime(0.2f);
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu"); 
     }
 }
