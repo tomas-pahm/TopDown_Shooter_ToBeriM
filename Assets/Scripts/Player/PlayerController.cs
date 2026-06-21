@@ -182,6 +182,11 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         rb.simulated = false;
         Destroy(gameObject, 0.75f);
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.TriggerGameOver();
+        }
     }
 
     void StopDashEffect() { if (dashEffectCoroutine != null) StopCoroutine(dashEffectCoroutine); }
